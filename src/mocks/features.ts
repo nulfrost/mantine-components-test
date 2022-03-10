@@ -19,10 +19,10 @@ export const MOCK_FEATURES = [
     description:
       "With new :focus-visible selector focus ring will appear only when user navigates with keyboard",
   },
-  {
-    icon: Flame,
-    title: "Flexible",
-    description:
-      "Customize colors, spacing, shadows, fonts and many other settings with global theme object",
-  },
+  //   {
+  //     icon: Flame,
+  //     title: "Flexible",
+  //     description:
+  //       "Customize colors, spacing, shadows, fonts and many other settings with global theme object",
+  //   },
 ];

@@ -14,13 +14,26 @@ import {
   SimpleGrid,
   Accordion,
   ActionIcon,
+  Menu,
+  Avatar,
+  Divider,
+  UnstyledButton,
 } from "@mantine/core";
 import { useBooleanToggle } from "@mantine/hooks";
 import {
   BrandInstagram,
   BrandTwitter,
   BrandYoutube,
+  ChevronDown,
+  Heart,
   Icon as TablerIcon,
+  Logout,
+  Message,
+  PlayerPause,
+  Settings,
+  Star,
+  SwitchHorizontal,
+  Trash,
 } from "tabler-icons-react";
 import { MOCK_FEATURES } from "./mocks/features";
 import { MOCK_FOOTER } from "./mocks/footer";
@@ -328,6 +341,27 @@ const useStyles = createStyles((theme, _params, getRef) => {
         marginTop: theme.spacing.xs,
       },
     },
+    userMenu: {
+      [theme.fn.smallerThan("xs")]: {
+        display: "none",
+      },
+    },
+
+    user: {
+      color: theme.colorScheme === "dark" ? theme.colors.dark[0] : theme.black,
+      padding: `${theme.spacing.xs}px ${theme.spacing.sm}px`,
+      borderRadius: theme.radius.sm,
+      transition: "background-color 100ms ease",
+
+      "&:hover": {
+        backgroundColor:
+          theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.white,
+      },
+    },
+    userActive: {
+      backgroundColor:
+        theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.white,
+    },
   };
 });
 
@@ -336,7 +370,7 @@ function HeroText() {
   const theme = useMantineTheme();
 
   return (
-    <Container className={classes.wrapper} size={1400}>
+    <Container className={classes.wrapper} size={1400} mb={120}>
       <div className={classes.inner}>
         <Title className={classes.title}>
           Automated AI{" "}
@@ -379,7 +413,8 @@ interface HeaderSimpleProps {
 export function HeaderSimple({ links }: HeaderSimpleProps) {
   const [opened, toggleOpened] = useBooleanToggle(false);
   const [active, setActive] = useState(links[0].link);
-  const { classes, cx } = useStyles();
+  const [userMenuOpened, setUserMenuOpened] = useState(false);
+  const { classes, theme, cx } = useStyles();
 
   const items = links.map((link) => (
     <a
@@ -398,11 +433,42 @@ export function HeaderSimple({ links }: HeaderSimpleProps) {
   ));
 
   return (
-    <Header height={60} mb={20}>
+    <Header height={60} mb={60}>
       <Container className={classes.header}>
         <Text>Some app</Text>
         <Group spacing={5} className={classes.links}>
           {items}
+          <Menu
+            size={260}
+            placement="end"
+            transition="pop-top-right"
+            className={classes.userMenu}
+            onClose={() => setUserMenuOpened(false)}
+            onOpen={() => setUserMenuOpened(true)}
+            control={
+              <UnstyledButton
+                className={cx(classes.user, {
+                  [classes.userActive]: userMenuOpened,
+                })}
+              >
+                <Group spacing={7}>
+                  <Text weight={500} size="sm" sx={{ lineHeight: 1 }} mr={3}>
+                    Dane
+                  </Text>
+                  <ChevronDown size={12} />
+                </Group>
+              </UnstyledButton>
+            }
+          >
+            <Menu.Label>Settings</Menu.Label>
+            <Menu.Item icon={<Settings size={14} />}>
+              Account settings
+            </Menu.Item>
+            <Menu.Item icon={<SwitchHorizontal size={14} />}>
+              Change account
+            </Menu.Item>
+            <Menu.Item icon={<Logout size={14} />}>Logout</Menu.Item>
+          </Menu>
         </Group>
 
         <Burger
