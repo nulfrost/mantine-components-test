@@ -114,24 +114,6 @@ const useStyles = createStyles((theme, _params, getRef) => {
       position: "relative",
       zIndex: 1,
     },
-
-    dots: {
-      position: "absolute",
-      color:
-        theme.colorScheme === "dark"
-          ? theme.colors.dark[5]
-          : theme.colors.gray[1],
-
-      "@media (max-width: 755px)": {
-        display: "none",
-      },
-    },
-
-    dotsLeft: {
-      left: 0,
-      top: 0,
-    },
-
     title: {
       textAlign: "center",
       fontWeight: 800,
@@ -416,7 +398,7 @@ export function HeaderSimple({ links }: HeaderSimpleProps) {
   ));
 
   return (
-    <Header height={60} mb={120}>
+    <Header height={60} mb={20}>
       <Container className={classes.header}>
         <Text>Some app</Text>
         <Group spacing={5} className={classes.links}>
